@@ -36,6 +36,16 @@ Suite des commandes, ou script, à exécuter pour produire les données.
 
 ## Résultats préalables
 
+### Temps d'exécution
+
+| Opération            | Tableau                   | Liste chaînée             |                           |
+|----------------------|---------------------------|---------------------------|---------------------------|
+| Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+| Accès                | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+|                      | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+
+### Consommation mémoire
+
 | Opération            | Tableau                   | Liste chaînée             |                           |
 |----------------------|---------------------------|---------------------------|---------------------------|
 | Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
