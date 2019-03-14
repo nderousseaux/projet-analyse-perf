@@ -38,23 +38,17 @@ Suite des commandes, ou script, à exécuter pour produire les données.
 
 ### Temps d'exécution
 
-| Opération            | Tableau                   | Liste chaînée             |                           |
-|----------------------|---------------------------|---------------------------|---------------------------|
-| Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-| Accès                | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-|                      | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+![plot](prealable.png)
 
 ### Consommation mémoire
 
-| Opération            | Tableau                   | Liste chaînée             |                           |
-|----------------------|---------------------------|---------------------------|---------------------------|
-| Insertion            | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-| Accès                | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
-|                      | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) | ![plot](path/to/plot.png) |
+![plot](prealable-mem.png)
 
 ### Analyse des résultats préalables
 
-Explications précises et succinctes des résultats préalables.
+La mémoire se comporte exactement pareil sur les 4 versions.
+Les temps d'exécutions dépendent essentiellement de l'affichage des valeurs du tableau.
+La version 2 de recherche semble un peu plus rapide.
 
 ### Discussion des résultats préalables
 
