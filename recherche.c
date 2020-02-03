@@ -30,53 +30,37 @@ void afficher_tableau(int *tableau, long long unsigned int n)
 
 }
 
-char rechercherV1(int *tableau, long long unsigned int n, int valeur)
+long long int rechercher(int *tableau, long long unsigned int n, int valeur)
 {
-	long long unsigned int i;
-	char trouve = 0;
+	long long int i;
+	long long int trouve = -1;
 
 	for (i=0; i<n; i++) {
 		if (tableau[i] == valeur) {
-			trouve=1;
+			trouve=i;
 		}
 	}
 
 	return trouve;
 }
 
-char rechercherV2(int *tableau, long long unsigned int n, int valeur)
-{
-	long long unsigned int i;
-	char trouve = 0;
-
-	for (i=0; i<n; i++) {
-		if (tableau[i] == valeur) {
-			return 1;
-		}
-	}
-
-	return 0;
-}
-
-
 int main(int argc, char *argv[])
 {
 	int *tableau;
 	int taille, valeur;
 	char trouve;
-	int version;
 
 	if (argc<2) {
 		printf("%s: opérande manquant\n",argv[0]);
 		printf("Recherche une valeur aléatoire dans un tableau d'entier aléatoire de taille n\n");
 		printf("Affiche le tableau et renvoie 1 si la valeur est trouvée, 0 sinon\n");
 		exit(1);
-		printf("Usage: %s taille version [graine]\n",argv[0]);
+		printf("Usage: %s taille [graine]\n",argv[0]);
 	}
 
 	unsigned int graine;
-	if (argc>3) {
-		graine = atoi(argv[3]);
+	if (argc>2) {
+		graine = atoi(argv[2]);
 	} else {
 		graine = time(NULL);
 	}
@@ -84,26 +68,11 @@ int main(int argc, char *argv[])
 	srand(graine);
 
 	taille = strtoull(argv[1], (char **) NULL, 10);
-	version = strtoull(argv[2], (char **) NULL, 10);
 	valeur = rand()%MAX_VALEUR;
 	tableau = generer_tableau(taille);
 
-	switch(version) {
-	case 1:
-		afficher_tableau(tableau,taille);
-		trouve = rechercherV1(tableau, taille, valeur);
-		break;
-	case 2:
-		trouve = rechercherV1(tableau, taille, valeur);
-		break;
-	case 3:
-		afficher_tableau(tableau,taille);
-		trouve = rechercherV2(tableau, taille, valeur);
-		break;
-	case 4:
-		trouve = rechercherV2(tableau, taille, valeur);
-		break;
-	}
+	afficher_tableau(tableau,taille);
+	trouve = rechercher(tableau, taille, valeur);
 
-  printf("Valeur %d trouve: %d\n",valeur, trouve);
+  printf("Valeur %d trouvée: %d\n",valeur, trouve);
 }
