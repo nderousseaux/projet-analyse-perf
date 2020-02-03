@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_VALEUR 150000
+#define MAX_VALEUR 15
 
 int *generer_tableau(long long unsigned int n)
 {
@@ -30,10 +30,10 @@ void afficher_tableau(int *tableau, long long unsigned int n)
 
 }
 
-long long int rechercher(int *tableau, long long unsigned int n, int valeur)
+long long unsigned int rechercher(int *tableau, long long unsigned int n, int valeur)
 {
-	long long int i;
-	long long int trouve = -1;
+	long long unsigned int i;
+	long long unsigned int trouve = -1;
 
 	for (i=0; i<n; i++) {
 		if (tableau[i] == valeur) {
@@ -74,5 +74,5 @@ int main(int argc, char *argv[])
 	afficher_tableau(tableau,taille);
 	trouve = rechercher(tableau, taille, valeur);
 
-  printf("Valeur %d trouvée: %d\n",valeur, trouve);
+  printf("Valeur %d trouvée: %u\n",valeur, trouve);
 }
