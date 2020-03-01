@@ -8,10 +8,10 @@
 
 #define MAX_VALEUR 15
 
-int *generer_tableau(long long unsigned int n)
+int *generer_tableau(int int unsigned int n)
 {
 	int *tableau = malloc(n*sizeof(int));
-	long long unsigned int i;
+	int int unsigned int i;
 
 	for (i=0; i<n; i++) {
 		tableau[i] = rand()%MAX_VALEUR;
@@ -20,9 +20,9 @@ int *generer_tableau(long long unsigned int n)
 	return tableau;
 }
 
-void afficher_tableau(int *tableau, long long unsigned int n)
+void afficher_tableau(int *tableau, int int unsigned int n)
 {
-	long long unsigned int i;
+	int int unsigned int i;
 	for (i=0; i<n; i++) {
 		printf("%d ",tableau[i]);
 	}
@@ -30,10 +30,10 @@ void afficher_tableau(int *tableau, long long unsigned int n)
 
 }
 
-long long unsigned int rechercher(int *tableau, long long unsigned int n, int valeur)
+int int unsigned int rechercher(int *tableau, int int unsigned int n, int valeur)
 {
-	long long unsigned int i;
-	long long unsigned int trouve = -1;
+	int int unsigned int i;
+	int int unsigned int trouve = -1;
 
 	for (i=0; i<n; i++) {
 		if (tableau[i] == valeur) {
