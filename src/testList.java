@@ -30,17 +30,16 @@ public class testList {
         ListeInterface list = null;
 
         //On crée la liste
-        switch (Integer.parseInt(args[1])) {
-            case 0: //ArrayList
-                System.out.println("Test sur : ArrayList.");
+        switch (args[1]) {
+            case "ArrayList":
                 list = new ArrayListTest();
                 break;
-            case 1: //LinkedList
-                System.out.println("Test sur : LinkedList.");
+            case "LinkedList":
+                
                 list = new LinkedListTest();
                 break;
-            case 2: //CopyOnWriteList
-                System.out.println("Test sur : CopyOnWriteList.");
+            case "CopyOnWriteList":
+                
                 list = new CopyOnWriteArrayListTest();
                 break;
             default:
@@ -53,17 +52,17 @@ public class testList {
             list.insert(0, getRandomIntegerInRange(0, max));
         }
 
-        switch (Integer.parseInt(args[2])){
-            case 0: //Get
-                System.out.println("Test de : get");
+        switch (args[2]){
+            case "get": //Get
+                
                 list.get(getRandomIntegerInRange(0, list.size()));
                 break;
-            case 1: //
-                System.out.println("Test de : insert");
+            case "insert": //
+                
                 list.insert(getRandomIntegerInRange(0, list.size()), getRandomIntegerInRange(0, max));
                 break;
-            case 2:
-                System.out.println("Test de : remove");
+            case "remove":
+                
                 list.removeAll(getRandomIntegerInRange(0, max));
                 break;
             default:
