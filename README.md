@@ -115,7 +115,23 @@ On va devoir lancer le script R à la main pour générer les graphiques.
 
 ### Temps d'exécution
 
-![plot](prealable.png)
+| Opération            | Résultats                 |
+|----------------------|---------------------------|
+| contains             | ![plot](graphs/contains.png) |
+| getFirst             | ![plot](graphs/getFirst.png) |
+| getRandom            | ![plot](graphs/getRandom.png) |
+| getLast              | ![plot](graphs/getLast.png) |
+| remove               | ![plot](graphs/remove.png) |
+
+### Consommation mémoire
+
+| Opération            | Résultats                 |
+|----------------------|---------------------------|
+| contains             | ![plot](graphs/contains_mem.png) |
+| getFirst             | ![plot](graphs/getFirst_mem.png) |
+| getRandom            | ![plot](graphs/getRandom_mem.png) |
+| getLast              | ![plot](graphs/getLast_mem.png) |
+| remove               | ![plot](graphs/remove_mem.png) |
 
 ### Consommation mémoire
 
