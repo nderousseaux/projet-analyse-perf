@@ -126,7 +126,6 @@ ArrayList est souvent plus rapide que la structure Array, mais de peu. L'écart 
 D'un point de vue de l'espace mémoire aloué, la aussi la structure HashMap est très gourmande. 
 ArrayList et Array sont toutes les deux à peu prés à égalité.
 
-
 ### Discussion des résultats préalables
 
 Ces résultats préalables sont facilement explicables. En effet, HashMap demande des opérations suplémentaire car elle prend en compte un couple clé/valeur, ce que ne font pas les structures Array et ArrayList.
@@ -189,10 +188,6 @@ done
 ### Analyse des résultats expérimentaux
 
 Nous pouvons voir qu'en effet, arrayList à une croissance linéaire, contrairement à HashMap dont la croissance du temps de calcul ralentit à mesure que le nombre d'éléments augmente.
-
-### Discussion des résultats expérimentaux
-
-
 
 ## Conclusion et travaux futurs
 
