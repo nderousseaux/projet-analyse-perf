@@ -9,10 +9,13 @@
 Description du Problème.
 
 Nous analysons dans cette étude les performances des différents type de structure en JAVA. Pour ce faire, nous allons tester les structures à travers plusieurs opération, et comparer leur temp d'execution et leur alocation mémoire. 
+
 Nous allons tester les trois structures suivantes : "ArrayList", "HashMap" et "Array". 
+
 Nous allons confronter ces structures à travers 5 opérations : "contains", "remove", "getFirst", "getRandom" et "getLast".
 
 L'objectif de cette étude est d'aider à la décision lorsqu'il s'agira de choisir une structure de données. 
+
 Quelle est la structure la plus performante dans tel ou tel contexte ?
 
 
@@ -94,8 +97,11 @@ done
 ```
 
 Pour produire les données, il suffit de lancer le script.
+
 Celui çi va lancer le programme "testList" pour chaque type de structure, pour chaque opération et pour différentes tailles, allant de 10 éléments, à 180 000 éléments.
+
 Il va enregistrer le temps d'execution et l'allocation mesurés dans le fichier nommé "result" du dossier "graphs".
+
 On va devoir lancer le script R à la main pour générer les graphiques.
 
 ## Résultats préalables
