@@ -1,4 +1,3 @@
-
 # P4a : Analyse de performances de différentes structures
 
 [Grille d'évaluation P4a](https://docs.google.com/spreadsheets/d/1x72glVEQHPx56Wr8G0RNQgfQXGX6xCsjms_6b7J6si0/edit?usp=sharing
@@ -96,6 +95,7 @@ done
 Pour produire les données, il suffit de lancer le script.
 Celui çi va lancer le programme "testList" pour chaque type de structure, pour chaque opération et pour différentes tailles, allant de 10 éléments, à 180 000 éléments.
 Il va enregistrer le temps d'execution et l'allocation mesurés dans le fichier nommé "result" du dossier "graphs".
+Il va faire ces opérations 25 fois, afin de pouvoir faire une moyenne.
 On va devoir lancer le script R à la main pour générer les graphiques.
 
 ## Résultats préalables
@@ -110,33 +110,80 @@ On va devoir lancer le script R à la main pour générer les graphiques.
 
 ### Analyse des résultats préalables
 
-La mémoire se comporte exactement pareil sur les 4 versions.
-Les temps d'exécutions dépendent essentiellement de l'affichage des valeurs du tableau.
-La version 2 de recherche semble un peu plus rapide.
+En observant les résulats on constate des différences de performances d'une structure à l'autre.
+
+Du point de vue du temps processeur, la structure HashMap consomme beaucoup plus de temps processeur que les autres. On retrouve ceci sur toutes les opérations.
+ArrayList est souvent plus rapide que la structure Array, mais de peu. L'écart semble s'amplifier à mesure que le nombre d'élément augmente.
+
+D'un point de vue de l'espace mémoire aloué, la aussi la structure HashMap est très gourmande. 
+ArrayList et Array sont toutes les deux à peu prés à égalité.
+
 
 ### Discussion des résultats préalables
 
-Explications précises et succinctes sur ce que les limites des résultats
-préalables et ce qu'ils ne permettent pas de vérifier.
+Ces résultats préalables sont facilement explicables. En effet, HashMap demande des opérations suplémentaire car elle prend en compte un couple clé/valeur, ce que ne font pas les structures Array et ArrayList.
 
 ## Etude approfondie
 
 ### Hypothèse
 
-Expression précise et succincte d'une hypothèse.
+Nous pouvons voir dans nos résultats préalable que l'évolution de hashMap semble avoir un profil logarithmique en temp processeur.
+
+Contrairement à ArrayList, qui semble avoir un augmentation linéaire.
+
+Notre hypothèse sera la suivante : A partir d'une certaine taille, la structure HashMap devient plus rapide que ArrayList sur l'opération getRandom. 
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Expression précise et succincte du protocole.
+Pour cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et HashMap sur l'opération getRandom.
 
 ```
-Suite des commandes, ou script, à exécuter pour produire les données.
+#!/bin/bash
+
+cd src
+javac *.java
+
+
+
+test() {
+
+    res=`(/usr/bin/time -f"%U\t%M" java testList $1 $2 $3> /dev/null) 2>&1`
+    echo -e "$1\t$2\t$3\t$res"
+    echo -e "$1\t$2\t$3\t$res" >> ../graphs/results
+}
+
+rm ../graphs/results
+touch ../graphs/results
+
+randomMax=10000
+
+echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results
+
+for taille in $(seq 800000 8000000)
+do
+    for struct in ArrayList HashMap
+    do
+        for operation in getRandom
+        do
+            for itest in `seq 1 25`
+            do
+                test $struct $operation $taille
+            done
+        done
+    done
+
+done
+
 ```
 
 ### Résultats expérimentaux
 
 ### Analyse des résultats expérimentaux
 
+Nous pouvons voir qu'en effet, arrayList à une croissance linéaire, contrairement à HashMap dont la croissance du temps de calcul ralentit à mesure que le nombre d'éléments augmente.
+
 ### Discussion des résultats expérimentaux
+
+
 
 ## Conclusion et travaux futurs
