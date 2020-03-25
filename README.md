@@ -63,9 +63,6 @@ cpu cores       : 4
 Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres :
 
 ```
-#!/bin/bash
-
-cd src
 javac *.java
 
 
@@ -84,13 +81,13 @@ randomMax=10000
 
 echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results
 
-for taille in $(seq 10 20000 200000)
+for taille in 10 200 400 800 1000 2000 4000 8000 20000 40000 80000 200000
 do
     for struct in ArrayList Array HashMap
     do
         for operation in getFirst getRandom getLast remove contains
         do
-            for itest in `seq 1 25`
+            for itest in `seq 1 10`
             do
                 test $struct $operation $taille
             done
@@ -103,7 +100,7 @@ done
 Pour produire les données, il suffit de lancer le script.
 Celui çi va lancer le programme "testList" pour chaque type de structure, pour chaque opération et pour différentes tailles, allant de 10 éléments, à 180 000 éléments.
 Il va enregistrer le temps d'execution et l'allocation mesurés dans le fichier nommé "result" du dossier "graphs".
-Il va faire ces opérations 25 fois, afin de pouvoir faire une moyenne.
+Il va faire ces opérations 10 fois, afin de pouvoir faire une moyenne.
 On va devoir lancer le script R à la main pour générer les graphiques.
 
 ## Résultats préalables
@@ -134,20 +131,18 @@ Ces résultats préalables sont facilement explicables. En effet, HashMap demand
 
 ### Hypothèse
 
-Nous pouvons voir dans nos résultats préalable que l'évolution de hashMap semble avoir un profil logarithmique en temp processeur.
+Nous pouvons voir dans nos résultats préalables que l'évolution de Array et ArrayList sont très similaire en temp processeur.
 
-Contrairement à ArrayList, qui semble avoir un augmentation linéaire.
 
-Notre hypothèse sera la suivante : A partir d'une certaine taille, la structure HashMap devient plus rapide que ArrayList sur l'opération getRandom. 
+Notre hypothèse sera la suivante :  Si l'on augmente le nombre d'éléments, on pourra observer un écart significatif de performances entre les structures Array et ArrayList?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Pour vériufier cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et HashMap sur l'opération getRandom.
+Pour vériufier cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et Array sur l'opération getRandom.
 
 ```
 #!/bin/bash
 
-cd src
 javac *.java
 
 
@@ -156,23 +151,23 @@ test() {
 
     res=`(/usr/bin/time -f"%U\t%M" java testList $1 $2 $3> /dev/null) 2>&1`
     echo -e "$1\t$2\t$3\t$res"
-    echo -e "$1\t$2\t$3\t$res" >> ../graphs/results
+    echo -e "$1\t$2\t$3\t$res" >> ../graphs/results2
 }
 
-rm ../graphs/results
-touch ../graphs/results
+rm ../graphs/results2
+touch ../graphs/results2
 
 randomMax=10000
 
-echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results
+echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results2
 
-for taille in $(seq 800000 8000000)
+for taille in 200000 400000 600000 800000 1000000 2000000 20000000
 do
-    for struct in ArrayList HashMap
+    for struct in ArrayList Array
     do
         for operation in getRandom
         do
-            for itest in `seq 1 25`
+            for itest in `seq 1 10`
             do
                 test $struct $operation $taille
             done
@@ -187,10 +182,11 @@ done
 
 ### Analyse des résultats expérimentaux
 
-Nous pouvons voir qu'en effet, arrayList à une croissance linéaire, contrairement à HashMap dont la croissance du temps de calcul ralentit à mesure que le nombre d'éléments augmente.
+Nous pouvons voir qu'en effet, ArrayList est sensiblement plus performante qu'array, en terme de temps processeur quand la taille est très grande.
+Par contre, elle prend 
 
 ## Conclusion et travaux futurs
 
-En conclusions, nous pouvons valider l'hypothèse. En effet HashMap est comparativement très lente sur les "petites" listes (< à x éléments) mais devient plus performantes quand les listes deviennent plus grandes.
+En conclusions, nous pouvons valider l'hypothèse, la structure ArrayList est plus performante que Array sur les grandes structures.
 
-Nous aurions pu aussi tester une autre hypothèse : Etant donné que les performance d'ArrayList et de Array était si proche, si l'on augmente le nombre d'éléments, pourra t'on observer un écart significatif de performances ?
+Nous aurions pu aussi tester une autre hypothèse : A partir d'une certaine taille, la structure HashMap devient-elle plus rapide qu'ArrayList sur l'opération getRandom. (J'ai testé l'hypothèse : non)
