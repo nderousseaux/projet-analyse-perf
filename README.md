@@ -5,11 +5,19 @@
 
 ## Problème
 
-Description du Problème.
+Nous analysons dans cette étude les performances des différents type de structure en JAVA. Pour ce faire, nous allons tester les structures à travers plusieurs opérations, et comparer leur temp d'execution et leur alocation mémoire. 
+Nous allons tester les trois structures suivantes : 
+- "ArrayList"
+- "HashMap"
+- "Array"
 
-Nous analysons dans cette étude les performances des différents type de structure en JAVA. Pour ce faire, nous allons tester les structures à travers plusieurs opération, et comparer leur temp d'execution et leur alocation mémoire. 
-Nous allons tester les trois structures suivantes : "ArrayList", "HashMap" et "Array". 
-Nous allons confronter ces structures à travers 5 opérations : "contains", "remove", "getFirst", "getRandom" et "getLast".
+Nous allons confronter ces structures à travers 5 opérations : 
+- "contains"
+- "remove"
+- "getFirst"
+- "getRandom" 
+- "getLast"
+
 
 L'objectif de cette étude est d'aider à la décision lorsqu'il s'agira de choisir une structure de données. 
 Quelle est la structure la plus performante dans tel ou tel contexte ?
@@ -41,18 +49,18 @@ taille : Taille de la structure.
 
 ### Environnement de test
 
-Description de la plateforme de test
+Description de la plateforme de test :
 ```
-cpu family      : 23
-model name      : AMD Ryzen 5 2600 Six-Core Processor @ 3.40GHz
-cpu MHz         : 3400.000
-cache size      : 512 KB
-cpu cores       : 6
+cpu family      : 6
+model name      : Intel(R) Atom(TM) x5-Z8350 CPU @ 1.44GHz
+cpu MHz         : 1441.000
+cache size      : 1024 KB
+cpu cores       : 4
 ```
 
 ### Description de la démarche systématique
 
-Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres.
+Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres :
 
 ```
 #!/bin/bash
@@ -135,7 +143,7 @@ Notre hypothèse sera la suivante : A partir d'une certaine taille, la structure
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Pour cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et HashMap sur l'opération getRandom.
+Pour vériufier cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et HashMap sur l'opération getRandom.
 
 ```
 #!/bin/bash
@@ -187,3 +195,7 @@ Nous pouvons voir qu'en effet, arrayList à une croissance linéaire, contrairem
 
 
 ## Conclusion et travaux futurs
+
+En conclusions, nous pouvons valider l'hypothèse. En effet HashMap est comparativement très lente sur les "petites" listes (< à x éléments) mais devient plus performantes quand les listes deviennent plus grandes.
+
+Nous aurions pu aussi tester une autre hypothèse : Etant donné que les performance d'ArrayList et de Array était si proche, si l'on augmente le nombre d'éléments, pourra t'on observer un écart significatif de performances ?
