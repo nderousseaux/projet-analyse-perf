@@ -133,30 +133,29 @@ On va devoir lancer le script R à la main pour générer les graphiques.
 | getLast              | ![plot](graphs/getLast_mem.png) |
 | remove               | ![plot](graphs/remove_mem.png) |
 
-### Consommation mémoire
-
-![plot](prealable-mem.png)
 
 ### Analyse des résultats préalables
 
 En observant les résulats on constate des différences de performances d'une structure à l'autre.
 
 Du point de vue du temps processeur, la structure HashMap consomme beaucoup plus de temps processeur que les autres. On retrouve ceci sur toutes les opérations.
-ArrayList est souvent plus rapide que la structure Array, mais de peu. L'écart semble s'amplifier à mesure que le nombre d'élément augmente.
+ArrayList est souvent plus lente que la structure Array, mais de peu. L'écart semble s'amplifier à mesure que le nombre d'éléments augmente. Cet ecart est aussi beaucoup moins présent sur les opérations get.
 
 D'un point de vue de l'espace mémoire aloué, la aussi la structure HashMap est très gourmande. 
-ArrayList et Array sont toutes les deux à peu prés à égalité.
+De la même manière que le temps processeur, Array demande moins de mémoire qu'ArrayList, y compris pour les opérations get.
 
 ### Discussion des résultats préalables
 
 Ces résultats préalables sont facilement explicables. En effet, HashMap demande des opérations suplémentaire car elle prend en compte un couple clé/valeur, ce que ne font pas les structures Array et ArrayList.
+
+Si Array prend moins de mémoire que ArrayList, c'est parceque ArrayList s'encombre de plusieurs informations pour stocker chaque case du tableau (la case suivante, la case précédente), alors qu'array ne stocke aucune de ces informations, il se contente de stocker ses données dans des cases mémoires contigue. C'est pourquoi il consomme moins de mémoire.
+
 
 ## Etude approfondie
 
 ### Hypothèse
 
 Nous pouvons voir dans nos résultats préalables que l'évolution de Array et ArrayList sont très similaire en temp processeur.
-
 
 Notre hypothèse sera la suivante :  Si l'on augmente le nombre d'éléments, on pourra observer un écart significatif de performances entre les structures Array et ArrayList?
 
@@ -204,13 +203,18 @@ done
 
 ### Résultats expérimentaux
 
+![plot](graphs/testGrandsNombres/getRandom.png)
+
+![plot](graphs/testGrandsNombres/getRandom_mem.png)
+
 ### Analyse des résultats expérimentaux
 
-Nous pouvons voir qu'en effet, ArrayList est sensiblement plus performante qu'array, en terme de temps processeur quand la taille est très grande.
-Par contre, elle prend 
+Nous pouvons voir qu'en effet, ArrayList est sensiblement plus lente qu'Array, en terme de temps processeur quand la taille est très grande.
+De surcroit, comme on pouvait s'y attendre, elle prend beaucoup plus de mémoire que Array.
 
 ## Conclusion et travaux futurs
 
-En conclusions, nous pouvons valider l'hypothèse, la structure ArrayList est plus performante que Array sur les grandes structures.
+En conclusions, nous pouvons valider l'hypothèse, la structure ArrayList est moins performante que Array sur les grandes structures.
+Cependant, elle permet l'implémentation de certaines méthodes que n'implémente pas Array. 
 
 Nous aurions pu aussi tester une autre hypothèse : A partir d'une certaine taille, la structure HashMap devient-elle plus rapide qu'ArrayList sur l'opération getRandom. (J'ai testé l'hypothèse : non)

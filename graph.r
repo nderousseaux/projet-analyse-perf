@@ -1,9 +1,9 @@
 library(ggplot2)
 
-d <- read.table("graphs/results", header=TRUE, fill=TRUE)
+d <- read.table("graphs/results2", header=TRUE, fill=TRUE)
 
 ext <- ".png" 
-chemin <- "graphs/"
+chemin <- "graphs/testGrandsNombres/"
 
 
         
