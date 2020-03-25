@@ -19,13 +19,13 @@ randomMax=10000
 
 echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results2
 
-for taille in 200000 400000 600000 800000 1000000 2000000 20000000
+for taille in 200000 400000 600000 800000 1000000 2000000 6000000 20000000
 do
     for struct in ArrayList Array
     do
         for operation in getRandom
         do
-            for itest in `seq 1 10`
+            for itest in `seq 1 5`
             do
                 test $struct $operation $taille
             done

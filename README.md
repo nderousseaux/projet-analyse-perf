@@ -144,6 +144,8 @@ ArrayList est souvent plus lente que la structure Array, mais de peu. L'écart s
 D'un point de vue de l'espace mémoire aloué, la aussi la structure HashMap est très gourmande. 
 De la même manière que le temps processeur, Array demande moins de mémoire qu'ArrayList, y compris pour les opérations get.
 
+On constate que getFirst et getLast sont très similaire. En effet, les trois strucutres n'ont aucune difficulté à atteindre la fin de la liste rapidement. Elles n'ont pas besoin de parcourir l'ensemble de la liste avant d'arriver à la fin.
+
 ### Discussion des résultats préalables
 
 Ces résultats préalables sont facilement explicables. En effet, HashMap demande des opérations suplémentaire car elle prend en compte un couple clé/valeur, ce que ne font pas les structures Array et ArrayList.
@@ -162,6 +164,7 @@ Notre hypothèse sera la suivante :  Si l'on augmente le nombre d'éléments, on
 ### Protocole expérimental de vérification de l'hypothèse
 
 Pour vériufier cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et Array sur l'opération getRandom.
+Nous n'utiliserons que l'opération getRandom car le get est une fonction présente nativement dans les deux structures, que nous n'avons pas eu à recoder dans notre étude.
 
 ```
 #!/bin/bash
@@ -184,13 +187,13 @@ randomMax=10000
 
 echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results2
 
-for taille in 200000 400000 600000 800000 1000000 2000000 20000000
+for taille in 200000 400000 600000 800000 1000000 2000000 6000000 20000000
 do
     for struct in ArrayList Array
     do
         for operation in getRandom
         do
-            for itest in `seq 1 10`
+            for itest in `seq 1 5`
             do
                 test $struct $operation $taille
             done
@@ -211,6 +214,8 @@ done
 
 Nous pouvons voir qu'en effet, ArrayList est sensiblement plus lente qu'Array, en terme de temps processeur quand la taille est très grande.
 De surcroit, comme on pouvait s'y attendre, elle prend beaucoup plus de mémoire que Array.
+
+Au vu des résultats, on peut supposer que le temps processeur d'ArrayList à une croissance exponentielle, tandis que Array à une croissance linéaire. On peu donc en conclure que Array est mathématiquement plus performant que ArrayList.
 
 ## Conclusion et travaux futurs
 
