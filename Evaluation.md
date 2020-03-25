@@ -1,12 +1,12 @@
 ## Etendue de l'étude
 - Nombre de structures
-  - [ ] Plus de deux structures sont traitées.
+  - [x] Plus de deux structures sont traitées.
   - [ ] Deux structures sont traitées.
-  - [x] Deux structures ne sont pas traitées.
+  - [ ] Deux structures ne sont pas traitées.
 - Nombre d'opérations
-  - [ ] Plus de deux opérations sont traitées.
+  - [x] Plus de deux opérations sont traitées.
   - [ ] Deux opérations sont traitées.
-  - [x] Deux opérations ne sont pas traitées.
+  - [ ] Deux opérations ne sont pas traitées.
 ## Rédaction et analyses
 - Description du problème
   - [ ] La section est pertinente, succincte et précise.
