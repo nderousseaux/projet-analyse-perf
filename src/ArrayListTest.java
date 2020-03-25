@@ -8,19 +8,18 @@ public class ArrayListTest extends ArrayList<Integer> implements ListeInterface 
         super();
     }
 
-    @Override
-    public Integer get(Integer pos) {
+    
+    public int getT(int pos) {
         return super.get(pos);
     }
 
-    @Override
-    public void insert(Integer pos, Integer valeur){
-        super.add(pos, valeur);
+    public void removeT(int pos){
+        super.remove(pos);
     }
 
     @Override
-    public void removeAll(Integer valeur){
-        super.removeAll(Collections.singleton(valeur));
+    public boolean contains(int valeur){
+        return super.contains(valeur);
     }
 
     @Override

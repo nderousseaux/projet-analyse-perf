@@ -7,31 +7,29 @@ javac *.java
 
 test() {
 
-    echo ""
-    echo "Test $3 de $2 avec $1 éléments"
-    res=`(/usr/bin/time -f"%U\t%M" java testList $1 $2 $3 > /dev/null) 2>&1`
-    echo -e "$1\t$res" >>../graphs/results
+    res=`(/usr/bin/time -f"%U\t%M" java testList $1 $2 $3> /dev/null) 2>&1`
+    echo -e "$1\t$2\t$3\t$res"
+    echo -e "$1\t$2\t$3\t$res" >> ../graphs/results
 }
 
 rm ../graphs/results
 touch ../graphs/results
 
+randomMax=10000
 
+echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results
 
-for liste in ArrayList LinkedList CopyOnWriteList
+for taille in $(seq 10 20000 200000)
 do
-    echo "----------------------Test de $liste----------------------" >> ../graphs/results
-    for operation in get insert remove
-    do 
-        echo "Test de $operation sur $liste :" >> ../graphs/results
-        for taille in 10 100 1000 10000 100000 100000
+    for struct in ArrayList Array HashMap
+    do
+        for operation in getFirst getRandom getLast remove contains
         do
-            test $taille $liste $operation
+            for itest in `seq 1 25`
+            do
+                test $struct $operation $taille
+            done
         done
-        echo -e "\n" >> ../graphs/results
     done
-    echo -e "\n" >> ../graphs/results
-done
 
-# R
-# perf <- red.table("../graphs/results")
+done
