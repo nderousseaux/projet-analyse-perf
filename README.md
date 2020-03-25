@@ -1,4 +1,3 @@
-
 # P4a : Analyse de performances de différentes structures
 
 [Grille d'évaluation P4a](https://docs.google.com/spreadsheets/d/1x72glVEQHPx56Wr8G0RNQgfQXGX6xCsjms_6b7J6si0/edit?usp=sharing
@@ -6,7 +5,18 @@
 
 ## Problème
 
-Description du Problème.
+Nous analysons dans cette étude les performances des différents type de structure en JAVA. Pour ce faire, nous allons tester les structures à travers plusieurs opérations, et comparer leur temp d'execution et leur alocation mémoire. 
+Nous allons tester les trois structures suivantes : 
+- "ArrayList"
+- "HashMap"
+- "Array"
+
+Nous allons confronter ces structures à travers 5 opérations : 
+- "contains"
+- "remove"
+- "getFirst"
+- "getRandom" 
+- "getLast"
 
 Nous analysons dans cette étude les performances des différents type de structure en JAVA. Pour ce faire, nous allons tester les structures à travers plusieurs opération, et comparer leur temp d'execution et leur alocation mémoire. 
 
@@ -45,23 +55,20 @@ taille : Taille de la structure.
 
 ### Environnement de test
 
-Description de la plateforme de test
+Description de la plateforme de test :
 ```
-cpu family      : 23
-model name      : AMD Ryzen 5 2600 Six-Core Processor @ 3.40GHz
-cpu MHz         : 3400.000
-cache size      : 512 KB
-cpu cores       : 6
+cpu family      : 6
+model name      : Intel(R) Atom(TM) x5-Z8350 CPU @ 1.44GHz
+cpu MHz         : 1441.000
+cache size      : 1024 KB
+cpu cores       : 4
 ```
 
 ### Description de la démarche systématique
 
-Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres.
+Description de la démarche systématique et de l'espace d'exploration pour chaque paramètres :
 
 ```
-#!/bin/bash
-
-cd src
 javac *.java
 
 
@@ -80,13 +87,13 @@ randomMax=10000
 
 echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results
 
-for taille in $(seq 10 20000 200000)
+for taille in 10 200 400 800 1000 2000 4000 8000 20000 40000 80000 200000
 do
     for struct in ArrayList Array HashMap
     do
         for operation in getFirst getRandom getLast remove contains
         do
-            for itest in `seq 1 25`
+            for itest in `seq 1 10`
             do
                 test $struct $operation $taille
             done
@@ -101,7 +108,7 @@ Pour produire les données, il suffit de lancer le script.
 Celui çi va lancer le programme "testList" pour chaque type de structure, pour chaque opération et pour différentes tailles, allant de 10 éléments, à 180 000 éléments.
 
 Il va enregistrer le temps d'execution et l'allocation mesurés dans le fichier nommé "result" du dossier "graphs".
-
+Il va faire ces opérations 10 fois, afin de pouvoir faire une moyenne.
 On va devoir lancer le script R à la main pour générer les graphiques.
 
 ## Résultats préalables
@@ -116,33 +123,78 @@ On va devoir lancer le script R à la main pour générer les graphiques.
 
 ### Analyse des résultats préalables
 
-La mémoire se comporte exactement pareil sur les 4 versions.
-Les temps d'exécutions dépendent essentiellement de l'affichage des valeurs du tableau.
-La version 2 de recherche semble un peu plus rapide.
+En observant les résulats on constate des différences de performances d'une structure à l'autre.
+
+Du point de vue du temps processeur, la structure HashMap consomme beaucoup plus de temps processeur que les autres. On retrouve ceci sur toutes les opérations.
+ArrayList est souvent plus rapide que la structure Array, mais de peu. L'écart semble s'amplifier à mesure que le nombre d'élément augmente.
+
+D'un point de vue de l'espace mémoire aloué, la aussi la structure HashMap est très gourmande. 
+ArrayList et Array sont toutes les deux à peu prés à égalité.
 
 ### Discussion des résultats préalables
 
-Explications précises et succinctes sur ce que les limites des résultats
-préalables et ce qu'ils ne permettent pas de vérifier.
+Ces résultats préalables sont facilement explicables. En effet, HashMap demande des opérations suplémentaire car elle prend en compte un couple clé/valeur, ce que ne font pas les structures Array et ArrayList.
 
 ## Etude approfondie
 
 ### Hypothèse
 
-Expression précise et succincte d'une hypothèse.
+Nous pouvons voir dans nos résultats préalables que l'évolution de Array et ArrayList sont très similaire en temp processeur.
+
+
+Notre hypothèse sera la suivante :  Si l'on augmente le nombre d'éléments, on pourra observer un écart significatif de performances entre les structures Array et ArrayList?
 
 ### Protocole expérimental de vérification de l'hypothèse
 
-Expression précise et succincte du protocole.
+Pour vériufier cela, nous allons modifier le script pour augmenter les tailles et tester uniquement ArrayList et Array sur l'opération getRandom.
 
 ```
-Suite des commandes, ou script, à exécuter pour produire les données.
+#!/bin/bash
+
+javac *.java
+
+
+
+test() {
+
+    res=`(/usr/bin/time -f"%U\t%M" java testList $1 $2 $3> /dev/null) 2>&1`
+    echo -e "$1\t$2\t$3\t$res"
+    echo -e "$1\t$2\t$3\t$res" >> ../graphs/results2
+}
+
+rm ../graphs/results2
+touch ../graphs/results2
+
+randomMax=10000
+
+echo -e "struct\toperation\tsize\ttmp\tmem" >> ../graphs/results2
+
+for taille in 200000 400000 600000 800000 1000000 2000000 20000000
+do
+    for struct in ArrayList Array
+    do
+        for operation in getRandom
+        do
+            for itest in `seq 1 10`
+            do
+                test $struct $operation $taille
+            done
+        done
+    done
+
+done
+
 ```
 
 ### Résultats expérimentaux
 
 ### Analyse des résultats expérimentaux
 
-### Discussion des résultats expérimentaux
+Nous pouvons voir qu'en effet, ArrayList est sensiblement plus performante qu'array, en terme de temps processeur quand la taille est très grande.
+Par contre, elle prend 
 
 ## Conclusion et travaux futurs
+
+En conclusions, nous pouvons valider l'hypothèse, la structure ArrayList est plus performante que Array sur les grandes structures.
+
+Nous aurions pu aussi tester une autre hypothèse : A partir d'une certaine taille, la structure HashMap devient-elle plus rapide qu'ArrayList sur l'opération getRandom. (J'ai testé l'hypothèse : non)
